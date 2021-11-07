@@ -1,0 +1,20 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "renzhong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonasschmedtmann/complete-javascript-course/issues"
+  },
+  "dependencies": {
+    "parcel": "^2.0.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0"
+  }
+}
