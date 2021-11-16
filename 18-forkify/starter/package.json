@@ -12,7 +12,9 @@
     "url": "https://github.com/jonasschmedtmann/complete-javascript-course/issues"
   },
   "dependencies": {
-    "parcel": "^2.0.0"
+    "core-js": "^3.19.1",
+    "parcel": "^2.0.0",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0"
