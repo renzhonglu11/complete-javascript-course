@@ -6,6 +6,8 @@ import { Fractional } from 'fractional';
 class RecipeView {
   #parentElem = document.querySelector('.recipe');
   #data;
+  #errorMessage=`we can not find that recipe, plz try another one☠☠`;
+  #message=``;
 
   render(data) {
     this.#data = data;
@@ -75,9 +77,7 @@ class RecipeView {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-          ${this.#data.ingredient
-            .map(this.#generateMarkupIngredient)
-            .join('')}
+          ${this.#data.ingredient.map(this.#generateMarkupIngredient).join('')}
           
         </ul>
       </div>
@@ -105,23 +105,59 @@ class RecipeView {
             `;
   }
 
+  addHandelerRender(handler) {
+    // when publischer publish an event, subsriber will handle it
+    ['hashchange', 'load'].forEach(e => window.addEventListener(e, handler));
+  }
+
   renderSpinner = function () {
     const markup = `
         <div class="spinner">
         <svg>
           <use href="${svg}#icon-loader"></use>
         </svg>
-      </div>`;
+      </div>
+      `;
     this.#clear();
     this.#parentElem.insertAdjacentHTML('afterbegin', markup);
   };
 
-  #generateMarkupIngredient(ing){
+  renderError(message=this.#errorMessage) {
+    const markup=`        
+    <div class="error">
+    <div>
+      <svg>
+        <use href="${svg}#icon-alert-triangle"></use>
+      </svg>
+    </div>
+    <p>${message}</p>
+  </div>
+  `
+  this.#clear();
+  this.#parentElem.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderMessage(message=this.#message) {
+    const markup=`        
+    <div class="recipe">
+    <div class="message">
+      <div>
+        <svg>
+          <use href="${svg}#icon-smile"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
+  `
+  this.#clear();
+  this.#parentElem.insertAdjacentHTML('afterbegin', markup);
+  }
+
+
+  #generateMarkupIngredient(ing) {
     const quantity =
-    ing.quantity == null
-      ? ''
-      : new Fraction(ing.quantity).toString();
-      return `
+      ing.quantity == null ? '' : new Fraction(ing.quantity).toString();
+    return `
     <li class="recipe__ingredient">
     <svg class="recipe__icon">
       <use href="${svg}#icon-check"></use>
